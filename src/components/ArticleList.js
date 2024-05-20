@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import '../styles.css';
+
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
@@ -15,19 +17,29 @@ const ArticleList = () => {
     };
     fetchArticles();
   }, []);
+  
 
   return (
-    <div>
+    <div className="container">
       <h1>Top Articles</h1>
-      <ul>
+      <h3>Click on any article to read more about it.</h3>
+      <ol >
         {articles.map((article) => (
-          <li key={article.url}>
-            <Link to={`/article/${encodeURIComponent(article.url)}`}>{article.title}</Link>
+          <li key={article.url} className="article-item ">
+            <Link to={`/article/${encodeURIComponent(article.url)}`} style={{ textDecoration: 'none', color: 'inherit' }} >
+              <div className='article-card'>
+                <p className="article-link">{article.title}</p>
+                <p className="article-description">{article.abstract}</p>
+
+              </div>
+            </Link>
+            
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   );
 };
+
 
 export default ArticleList;

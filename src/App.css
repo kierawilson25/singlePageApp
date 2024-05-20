@@ -17,10 +17,7 @@ li {
   margin: 10px 0;
 }
 
-a {
-  text-decoration: none;
-  color: #1a0dab;
-}
+
 
 a:hover {
   text-decoration: underline;
