@@ -8,15 +8,26 @@ import '../styles.css';
 const ArticleDetail = () => {
   const { url } = useParams();
   const [article, setArticle] = useState(null);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    console.log("Article updated:", article);
+  }, [article]);
 
   useEffect(() => {
     const fetchArticle = async () => {
-      const response = await axios.get(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=web_url:("${decodeURIComponent(
-          url
-        )}")&api-key=${process.env.REACT_APP_NYT_API_KEY}`
-      );
+      try{
+        const response = await axios.get(
+          `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=web_url:("${decodeURIComponent(
+            url
+          )}")&api-key=${process.env.REACT_APP_NYT_API_KEY}`
+        );
       setArticle(response.data.response.docs[0]);
+    }catch (error) {
+      setError(error.message);
+    }
+
     };
     fetchArticle();
   }, [url]);
@@ -26,8 +37,8 @@ const ArticleDetail = () => {
     const handleBackClick = () => {
       navigate('/');
     };
-
-
+  
+  if (error) return <div>Error: {error}</div>;
   if (!article) return <div>Loading...</div>;
 
   return (

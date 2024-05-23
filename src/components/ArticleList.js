@@ -5,19 +5,29 @@ import { Link } from 'react-router-dom';
 import '../styles.css';
 
 
+
+
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const response = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`
-      );
-      setArticles(response.data.results);
+      try {
+        const response = await axios.get(
+          `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`
+        );
+        
+        setArticles(response.data.results);
+      }catch (error) {
+        setError(error.message);
+      }
     };
     fetchArticles();
   }, []);
   
+  if (error) return <div>Error: {error}</div>;
+  if (!articles) return <div>Loading...</div>;
 
   return (
     <div className="container">

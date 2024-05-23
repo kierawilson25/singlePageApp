@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import '../Header.css';
 
 const Header = () => {
-    const [lightMode, setLightMode] = useState(true);
-    const handleButtonClick = () => {
-        lightMode ? setLightMode(false) : setLightMode(true)
-      };
+
     
     return (
         <header className="header">
@@ -17,9 +14,7 @@ const Header = () => {
                     <li className="header__nav-item"><a href="/books"> NYT Best Sellers</a></li>
                 </ul>
             </nav>
-            <div className="header__actions">
-                {/* <button className="header__action-btn" onClick={handleButtonClick}>{lightMode ? "Switch to Dark Mode" : "Switch to Light Mode"}</button> */}
-            </div>
+
         </header>
     );
 };

@@ -7,18 +7,26 @@ import '../styles.css';
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const response = await axios.get(
-        `https://api.nytimes.com/svc/books/v3/lists/best-sellers/history.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`
-      );
-      setBooks(response.data.results);
+      try{
+        const response = await axios.get(
+          `https://api.nytimes.com/svc/books/v3/lists/best-sellers/history.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`
+        );
+        setBooks(response.data.results);
+      } catch (error) {
+        setError(error.message);
+      }
     };
     fetchBooks();
   }, []);
   
   
+    if (error) return <div>Error: {error}</div>;
+    if (!books) return <div>Loading...</div>;
+
 
   return (
     <div className="container">

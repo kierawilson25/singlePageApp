@@ -15,8 +15,11 @@ const BookDetail = () => {
           `https://api.nytimes.com/svc/books/v3/lists/best-sellers/history.json?api-key=${process.env.REACT_APP_NYT_API_KEY}`
         );
         const bookData = response.data.results.find(b => b.title === decodeURIComponent(title));
+
         setBook(bookData);
+
       } catch (error) {
+        console.error("API Error:", error); // Log API error
         setError(error.message);
       }
     };
@@ -42,7 +45,7 @@ const BookDetail = () => {
       <p><b>Publisher:</b> {book.publisher}</p>
       {book.publication_dt && <p><b>Publication Date:</b> {book.publication_dt}</p>}
       <p><b>Price:</b> {book.price}</p>
-      {book.ranks_history[0].rank &&<p><b>Rank:</b> {book.ranks_history[0].rank}</p>}
+      {book.ranks_history && book.ranks_history[0].rank &&<p><b>Rank:</b> {book.ranks_history[0].rank}</p>}
 
       <p><b>Description:</b> {book.description}</p>
       {/* Add more details as needed */}
