@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Single Page Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a single page application.
 
 ## Available Scripts
 
