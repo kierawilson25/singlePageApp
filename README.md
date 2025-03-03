@@ -1,6 +1,6 @@
 # Single Page Application
 
-This is a single page application.
+This is a single page application using react. This application utilizes the NTY public API to create a list of the current top books.
 
 ## Available Scripts
 
